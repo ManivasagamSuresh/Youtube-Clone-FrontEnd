@@ -29,7 +29,10 @@
   align-items: center;
   gap: 20px;
   cursor: pointer;
-  padding: 9px 0px;
+  padding: 9px 3px;
+}
+.Menu-Item:hover{
+  background-color: #333333;
 }
 
 .Menu-Hr {

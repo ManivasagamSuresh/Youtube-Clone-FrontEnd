@@ -12,10 +12,11 @@ import { MdOutlineSettings } from 'react-icons/md';
 import { MdHelpOutline } from 'react-icons/md';
 import { MdOutlineLightMode } from 'react-icons/md';
 import { RiAccountCircleLine } from 'react-icons/ri';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 function Menu() {
+   const navigate = useNavigate()
   return (
    <div className='Menu-Container'>
    
@@ -27,37 +28,38 @@ function Menu() {
         </div>
       </Link>
       
-        <div className="Menu-Item">
-           <AiFillHome/> Home
+        <div className="Menu-Item" onClick={()=>{navigate("/")}}>
+           <AiFillHome size={"1.5em"}/> Home
         </div>
-        <div className="Menu-Item">
-           <MdOutlineExplore/> Explore
+        <div className="Menu-Item" onClick={()=>{navigate("/trendvideo")}}>
+           <MdOutlineExplore size={"1.5em"}/> Explore
         </div>
-        <div className="Menu-Item">
-           <MdOutlineSubscriptions/> Subscription
+        <div className="Menu-Item" onClick={()=>{navigate("/subscribedVideo")}}>
+           <MdOutlineSubscriptions size={"1.5em"}/> Subscription
         </div>
         <hr className='Menu-Hr'/>
         <div className="Login">
             Sign In to Like , comment and Subscribe .
             <br/>
-            <button className='Menu-Button'><RiAccountCircleLine/> Sign In</button> 
+            
+            <button onClick={()=>{navigate('/Login')}} className='Menu-Button'><RiAccountCircleLine size={"1.3em"}/> Sign In</button> 
         </div>
         <hr className='Menu-Hr'/>
         <div className="Menu-Item">
-           <MdOutlineVideoLibrary size={"2em"}/> Library
+           <MdOutlineVideoLibrary size={"1.5em"}/> Library
         </div>
         <div className="Menu-Item">
-           <MdOutlineHistory/> History
+           <MdOutlineHistory size={"1.5em"}/> History
         </div>
         <hr className='Menu-Hr'/>
         <div className="Menu-Item">
-           <MdOutlineSettings/> Setting
+           <MdOutlineSettings size={"1.5em"}/> Setting
         </div>
         <div className="Menu-Item">
-           <MdHelpOutline/> Help
+           <MdHelpOutline size={"1.5em"}/> Help
         </div>
         <div className="Menu-Item">
-           <MdOutlineLightMode/> Light Mode
+           <MdOutlineLightMode size={"1.5em"}/> Light Mode
         </div>
 
       </div>

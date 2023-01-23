@@ -3,7 +3,7 @@ display: flex;
 
 gap: 24px;
     
-background-color: red;
+/* background-color: red; */
 
 
 }
@@ -11,12 +11,15 @@ background-color: red;
     flex: 7;
     color: #aaaaaa;
     margin-left: 20px;
-    background-color: honeydew;
+    
    
 }
 .Video-Recommodation{
 flex: 4;
 color: #aaaaaa;
+/* background-color: honeydew; */
+align-items: center;
+/* margin-left: 50px; */
 }
 
 .Video-Wrapper{
