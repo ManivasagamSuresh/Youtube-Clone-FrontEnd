@@ -32,7 +32,7 @@ function VideoCard({type,vdo,test}) {
   return (
 
     <Link to={'/video/2106'} style={{textDecoration:"none"}}>
-    {console.log(test)}
+    {/* {console.log(test)} */}
     <div className='Card-Container' style={{display : `${type=="sm" && "flex" }`, marginBottom:`${type=="sm" && "20px" } `,width:`${type=="sm" && "100%" } `,alignItems:`${type=="sm" && "center" } ` }}>
       <img src={vdo.imgUrl} className='Card-Img'style={{height:`${type=="sm" && "95px" }`,width:`${type=="sm" && "180px" }`}}/>
       <div className='Card-Details' style={{marginTop:`${type=="sm" && "0px" }`}}>

@@ -16,7 +16,9 @@ useEffect(()=>{
 
 const fetchdata = async()=>{
   try {
-    const videodata = await axios.get(`${Config.api}/${type}`)  
+    const videodata = await axios.get(`${Config.api}/${type}`,{headers :{
+        "authorization":localStorage.getItem("accessToken")
+    }})  
     console.log(videodata.data) ;  
      setVideos(videodata.data);
   } catch (error) {

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import "./Menu.css"
 
 
@@ -13,10 +13,14 @@ import { MdHelpOutline } from 'react-icons/md';
 import { MdOutlineLightMode } from 'react-icons/md';
 import { RiAccountCircleLine } from 'react-icons/ri';
 import { Link, useNavigate } from 'react-router-dom';
+import { UserContext } from '../Context/userContext';
+import { useSelector } from 'react-redux';
 
 
 function Menu() {
    const navigate = useNavigate()
+   // const {User,setUser} = useContext(UserContext);
+   const {currentUser} = useSelector(state => state.user)
   return (
    <div className='Menu-Container'>
    
@@ -37,13 +41,19 @@ function Menu() {
         <div className="Menu-Item" onClick={()=>{navigate("/subscribedVideo")}}>
            <MdOutlineSubscriptions size={"1.5em"}/> Subscription
         </div>
-        <hr className='Menu-Hr'/>
-        <div className="Login">
+        
+        
+            { !currentUser && 
+            <>
+            <hr className='Menu-Hr'/>
+            <div className="Login">
             Sign In to Like , comment and Subscribe .
             <br/>
+            <button onClick={()=>{navigate('/Login')}} className='Menu-Button'><RiAccountCircleLine size={"1.3em"}/> Sign In</button>
+            </div>
+            </>  }
             
-            <button onClick={()=>{navigate('/Login')}} className='Menu-Button'><RiAccountCircleLine size={"1.3em"}/> Sign In</button> 
-        </div>
+        
         <hr className='Menu-Hr'/>
         <div className="Menu-Item">
            <MdOutlineVideoLibrary size={"1.5em"}/> Library

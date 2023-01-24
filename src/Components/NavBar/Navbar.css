@@ -52,3 +52,23 @@
   align-items: center;
   gap: 5px;
 }
+.Navbar-User{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+  color: #aaaaaa;
+}
+.Navbar-Avatar{
+  width: 28px;
+  height: 28px;
+  background-color: #999;
+  border-radius: 50%;
+  
+}
+.Navbar-Logout{
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}

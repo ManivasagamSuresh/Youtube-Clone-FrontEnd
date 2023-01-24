@@ -1,14 +1,21 @@
 import axios from 'axios';
 import { useFormik } from 'formik';
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import "./Login.css"
 import { Config } from '../../Config'
+import { useDispatch } from 'react-redux';
+import { loginFailure, loginStart, loginSuccess } from '../Redux/userSlice';
+import { UserContext } from '../Context/userContext';
 
 function Login() {
     const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-const [User,setUser]=useState({});
+
+// const [User,setUser]=useState({});
+// const {User,setUser} = useContext(UserContext);
+
 
 const formik = useFormik({
   initialValues :{
@@ -29,10 +36,20 @@ const formik = useFormik({
     return error;
   },
   onSubmit : async(values)=>{
-    console.log(values);
+    try {
+      // console.log(values);
+      dispatch(loginStart());
       let user = await axios.post(`${Config.api}/signin`,values)
-      setUser(user.data)
-      console.log(User);
+      localStorage.setItem("accessToken",user.data.token)
+      dispatch(loginSuccess(user.data));
+      // setUser(user.data)
+      navigate('/')
+      console.log("signed in");      
+    } catch (error) {
+      console.log(error)
+      dispatch(loginFailure());
+    }
+    
   }
 })
 
