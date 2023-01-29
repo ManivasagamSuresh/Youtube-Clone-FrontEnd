@@ -35,6 +35,7 @@ useEffect(()=>{
       const  chnl = await axios.get(`${Config.api}/findUser/${vdo.data.userId}`,{headers :{
         "authorization":localStorage.getItem("accessToken")
     }})         
+    console.log(vdo)
           setChannel(chnl.data);
           dispatch(fetchSuccess(vdo.data));
     } catch (error) {
@@ -91,18 +92,18 @@ const handleSub = async()=>{
     <div className="Video-Container">
       <div className="Video-Content">
         <div className="Video-Wrapper">
-          <video className="Video-Vdo" src={currentVideo.videoUrl} controls/>          
+          <video className="Video-Vdo" src={currentVideo?.videoUrl} controls/>          
         </div>
-        <h1 className="Video-Title">{currentVideo.title}</h1>
+        <h1 className="Video-Title">{currentVideo?.title}</h1>
         <div className="Video-Details">
-          <div className="Video-Info">{currentVideo.views}  views . {format(currentVideo.timestamps)}</div>
+          {/* <div className="Video-Info">{currentVideo?.views}  views . {format(currentVideo.timestamps)}</div> */}
           <div className="Video-Buttons">
             <div className="Video-Button" >
-              {currentVideo.likes?.includes(currentUser.others._id)?<AiFillLike size={"1.2em"} /> :<AiOutlineLike size={"1.2em"} onClick={handlelike}/>}
-              {currentVideo.likes?.length}
+              {currentVideo?.likes?.includes(currentUser.others._id)?<AiFillLike size={"1.2em"} /> :<AiOutlineLike size={"1.2em"} onClick={handlelike}/>}
+              {currentVideo?.likes?.length}
             </div>
             <div className="Video-Button" >
-            {currentVideo.dislikes?.includes(currentUser.others._id)?<AiFillDislike size={"1.2em"}/>:<AiOutlineDislike size={"1.2em"} onClick={handledislike}/>}
+            {currentVideo?.dislikes?.includes(currentUser.others._id)?<AiFillDislike size={"1.2em"}/>:<AiOutlineDislike size={"1.2em"} onClick={handledislike}/>}
             </div>
             <div className="Video-Button">
               <RiShareForwardLine size={"1.3em"} />
@@ -123,16 +124,16 @@ const handleSub = async()=>{
               <span className="Video-ChannelName">{Channel.name}</span>
               <div className="Video-ChannelCounter">{Channel.subscribers} Subscribers</div>
               <div className="Video-ChannelDescription">
-              {currentVideo.desc}
+              {currentVideo?.desc}
               </div>
             </div>
           </div>
           <button className="Video-ChannelSubscribe" onClick={handleSub}>{currentUser.others.subscribedUsers?.includes(Channel._id) ? "Subscribed":  "Subscribe"}</button>
         </div>
         <hr className="Video-Hr" />
-        <Comments videoID={currentVideo._id}/>
+        <Comments videoID={currentVideo?._id}/>
       </div>
-      <Recommodation tags={currentVideo.tags}/>     
+      <Recommodation tags={currentVideo?.tags}/>     
     </div>
   );
 }
