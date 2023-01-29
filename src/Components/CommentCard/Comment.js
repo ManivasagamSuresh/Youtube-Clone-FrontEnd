@@ -1,15 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Comment.css";
 import logo from '../../img/channelLogo.jpg'
+import { useSelector } from "react-redux";
+import { format } from 'timeago.js'
+import axios from "axios";
+import { Config } from "../../Config";
 
-function Comment() {
+function Comment({comment}) {
+
+  const {currentUser}=useSelector(state => state.user);
+  const [User,setUser] = useState([]);
+
+useEffect(()=>{
+  const fetchdata = async()=>{
+    try {
+    const user = await axios.get(`${Config.api}/findUser/${comment.userId}`)
+    setUser(user.data);
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  
+  fetchdata()
+},[])
+
   return (
   
   <div className="CommentCard-Container">
-    <img src={logo} className="CommentCard-Avatar" />
+    <img src={User.img} className="CommentCard-Avatar" />
     <div className="CommentCard-Details">
-        <span className="CommentCard-Name">Bakya <span className="CommentCard-Date">1 days ago</span> </span>
-        <span className="CommentCard-text">AK Mass,I'm Ak veriyan</span>
+        <span className="CommentCard-Name">{User.name} <span className="CommentCard-Date">{format(comment.timestamps)}</span> </span>
+        <span className="CommentCard-text">{comment.comment}</span>
     </div>
     </div>
     

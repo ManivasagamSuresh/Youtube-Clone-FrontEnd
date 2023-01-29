@@ -12,15 +12,15 @@ function VideoCard({type,vdo,test}) {
   const[Channel , setChannel] = useState({})
 
   useEffect(()=>{
-    
+    // console.log(vdo.userId);
     fetchChannel();
-    // console.log(Videos)
+    
   },[vdo.userId])
   
   const fetchChannel = async()=>{
     try {
       const channeldata = await axios.get(`${Config.api}/findUser/${vdo.userId}`)  
-      // console.log(channedata.data) ;  
+      
        setChannel(channeldata.data);
     } catch (error) {
       console.log(error);
@@ -31,8 +31,8 @@ function VideoCard({type,vdo,test}) {
 
   return (
 
-    <Link to={'/video/2106'} style={{textDecoration:"none"}}>
-    {/* {console.log(test)} */}
+    <Link to={`/video/${vdo._id}`} style={{textDecoration:"none"}}>
+    
     <div className='Card-Container' style={{display : `${type=="sm" && "flex" }`, marginBottom:`${type=="sm" && "20px" } `,width:`${type=="sm" && "100%" } `,alignItems:`${type=="sm" && "center" } ` }}>
       <img src={vdo.imgUrl} className='Card-Img'style={{height:`${type=="sm" && "95px" }`,width:`${type=="sm" && "180px" }`}}/>
       <div className='Card-Details' style={{marginTop:`${type=="sm" && "0px" }`}}>
@@ -40,13 +40,13 @@ function VideoCard({type,vdo,test}) {
         <div className='Card-Texts' style={{fontSize:`${type=="sm" && "12px" }`}}>
             <h1 className='Card-Title'>{vdo.title}</h1>
             <h2 className='Card-ChannelName' >{Channel.name}</h2>
-            <div className='Card-Info'>{vdo.views} views · {format(vdo.timestamps)}</div>
+            <div className='Card-Info'> {format(vdo.timestamps)}</div>
           </div>
       </div>
       </div>
       </Link>
   )
 }
-// {vdo.views} views · {format(vdo.timestamps)}
+
 export default VideoCard
 

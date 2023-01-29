@@ -19,7 +19,7 @@ import { useSelector } from 'react-redux';
 
 function Menu() {
    const navigate = useNavigate()
-   // const {User,setUser} = useContext(UserContext);
+   
    const {currentUser} = useSelector(state => state.user)
   return (
    <div className='Menu-Container'>
@@ -68,9 +68,7 @@ function Menu() {
         <div className="Menu-Item">
            <MdHelpOutline size={"1.5em"}/> Help
         </div>
-        <div className="Menu-Item">
-           <MdOutlineLightMode size={"1.5em"}/> Light Mode
-        </div>
+        
 
       </div>
       

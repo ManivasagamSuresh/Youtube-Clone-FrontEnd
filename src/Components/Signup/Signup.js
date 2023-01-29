@@ -32,7 +32,7 @@ function Signup() {
         return error;
       },
       onSubmit : async(values)=>{
-        // console.log(values);
+        
         try {
           let exist = await axios.get(`${Config.api}/users`,values)
           if(exist){

@@ -12,11 +12,6 @@ function Login() {
     const navigate = useNavigate();
   const dispatch = useDispatch();
 
-
-// const [User,setUser]=useState({});
-// const {User,setUser} = useContext(UserContext);
-
-
 const formik = useFormik({
   initialValues :{
     email : "",
@@ -37,12 +32,12 @@ const formik = useFormik({
   },
   onSubmit : async(values)=>{
     try {
-      // console.log(values);
+      
       dispatch(loginStart());
       let user = await axios.post(`${Config.api}/signin`,values)
       localStorage.setItem("accessToken",user.data.token)
       dispatch(loginSuccess(user.data));
-      // setUser(user.data)
+      
       navigate('/')
       console.log("signed in");      
     } catch (error) {
