@@ -60,7 +60,7 @@ function Signup() {
         <div className='Signup-Wrapper'>
         <h1 className='Signup-Title'>Welcome..!</h1>
         <div className='Signup-SubTitle'>Signup with Email</div>
-        <input className='Signup-Input' placeholder="User Name"name='name'  
+        <input className='Signup-Input' placeholder="User Name" name='name'  
                                                              onChange={formik.handleChange} 
                                                              onBlur={formik.handleBlur} 
                                                              value={formik.values.name}/>

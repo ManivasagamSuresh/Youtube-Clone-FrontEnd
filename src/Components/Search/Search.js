@@ -23,7 +23,7 @@ function Search() {
         fetch();
     },[query])
   return (
-    <div className='Search-Container'>search
+    <div className='Search-Container'>
         {
             Videos.map((vdo)=>{
                  return   <VideoCard key={vdo._id} vdo={vdo}/>
