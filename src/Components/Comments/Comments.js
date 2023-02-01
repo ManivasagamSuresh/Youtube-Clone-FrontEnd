@@ -7,6 +7,7 @@ import {  useSelector } from 'react-redux';
 import {  useFormik } from 'formik';
 
 import Pusher from 'pusher-js';
+import { useNavigate } from 'react-router-dom';
 
 
 function Comments({videoID}) {
@@ -14,6 +15,7 @@ function Comments({videoID}) {
   const {currentVideo}=useSelector(state=>state.video)
   const [comments,setComments]=useState([]);
   const[Input,setInput]=useState('')
+  const navigate = useNavigate();
   
 useEffect(()=>{
   var pusher = new Pusher('2cb807ac9e27dee80bb7', {
@@ -55,7 +57,10 @@ const formik = useFormik({
     }})
     formik.resetForm()
     alert("Comment Added");
-    window.location.reload();
+    console.log(currentVideo);
+    // window.location.reload();
+    // navigate(`/video/${vdo._id}`)
+    
     } catch (error) {
       console.log(error)
     }  
