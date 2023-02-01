@@ -59,7 +59,7 @@ const formik = useFormik({
     alert("Comment Added");
     console.log(currentVideo);
     // window.location.reload();
-    // navigate(`/video/${vdo._id}`)
+    navigate(`/video/${currentVideo._id}`)
     
     } catch (error) {
       console.log(error)
