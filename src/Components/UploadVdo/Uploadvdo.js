@@ -18,10 +18,15 @@ const [inputs,setInputs] =useState({});
 
 const [tags,setTags] =useState([]);
 
-
+let t = []
 const handleTags = (e)=>{
-  setTags(e.target.value.split(','));
+  console.log(e.target.value.split(','));
+  
+  // t.push(e.)
+  setTags(e.target.value.split(","));
 }
+
+// 
 
 const handleChange = (e)=>{
 setInputs((prev)=>{
@@ -38,7 +43,7 @@ const UploadFile = (file,urltype)=>{
   (snapshot) => {
     // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
     const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-    urltype === "imgUrl" ? setImgPerc(progress) : setvdoPerc(progress)
+    urltype === "imgUrl" ? setImgPerc(Math.round(progress)) : setvdoPerc(Math.round(progress))
     switch (snapshot.state) {
       case 'paused':
         console.log('Upload is paused');
@@ -79,16 +84,17 @@ Img &&  UploadFile(Img,"imgUrl")
 
 const handleUploadDb = async(e)=>{
  e.preventDefault();
+ console.log({...inputs,tags})
 try {
   const res = await axios.post(`${Config.api}/addvideo`,{...inputs,tags},{ "headers" :{
     "authorization":localStorage.getItem("accessToken")
   }})
 setOpen(false);
-
+console.log(res.data)
 alert('Your Video has been Uploaded')
-window.location.reload();
-// navigate(`/video/${res.data._id}`)
-res.status(200).send("Uploaded")  
+// window.location.reload();
+navigate(`/video/${res.data.insertedId}`)
+
 } catch (error) {
   
 }
@@ -108,7 +114,7 @@ res.status(200).send("Uploaded")
             <input type={"text"} placeholder="Title" className='Upload-Input'  onChange={handleChange} name="title"/>
             <textarea rows="8" cols="" placeholder='Description' className='Upload-Input' onChange={handleChange} name="desc"></textarea>
             
-            <input type={"text"} placeholder="Separate the tags with commas." className='Upload-Input' onChange={handleTags}/>
+            <input type={"text"} placeholder="Separate the tags with commas." className='Upload-Input' onChange={handleTags} name='tags'/>
             
             <label className='Upload-Lable'>Image :</label>
             {

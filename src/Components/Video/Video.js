@@ -10,13 +10,14 @@ import Comments from "../Comments/Comments";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchSuccess, like , dislike } from "../Redux/videoSlice";
+import { fetchSuccess, like , dislike, views } from "../Redux/videoSlice";
 import { format } from 'timeago.js'
 import { Config } from "../../Config";
 import { subscription } from "../Redux/userSlice";
 import Recommodation from "../Recommondation/Recommodation";
+import { Socket } from "socket.io-client";
 
-function Video() {
+function Video({socket}) {
 
 
   const {currentUser} = useSelector(state => state.user)
@@ -26,9 +27,14 @@ const params = useParams();
 const dispatch = useDispatch()
 
 
+
 useEffect(()=>{
   const fecthData = async()=>{
+    
     try {
+      await axios.put(`${Config.api}/videoViews/${currentVideo._id}`,{"headers" :{
+        "authorization":localStorage.getItem("accessToken")
+    }})
       const  vdo = await axios.get(`${Config.api}/findvideo/${params.id}`,{headers :{
         "authorization":localStorage.getItem("accessToken")
     }})
@@ -38,12 +44,15 @@ useEffect(()=>{
     console.log(vdo)
           setChannel(chnl.data);
           dispatch(fetchSuccess(vdo.data));
+          dispatch(views(vdo.data));
     } catch (error) {
       console.log(error)
     }
   }
   fecthData();
 },[params.id,dispatch])
+
+
 
 
 const handlelike = async()=>{
@@ -96,7 +105,7 @@ const handleSub = async()=>{
         </div>
         <h1 className="Video-Title">{currentVideo?.title}</h1>
         <div className="Video-Details">
-          {/* <div className="Video-Info">{currentVideo?.views}  views . {format(currentVideo.timestamps)}</div> */}
+          { <div className="Video-Info">{currentVideo?.views}  views . {format(currentVideo.timestamps)}</div> }
           <div className="Video-Buttons">
             <div className="Video-Button" >
               {currentVideo?.likes?.includes(currentUser.others._id)?<AiFillLike size={"1.2em"} /> :<AiOutlineLike size={"1.2em"} onClick={handlelike}/>}
@@ -131,7 +140,7 @@ const handleSub = async()=>{
           <button className="Video-ChannelSubscribe" onClick={handleSub}>{currentUser.others.subscribedUsers?.includes(Channel._id) ? "Subscribed":  "Subscribe"}</button>
         </div>
         <hr className="Video-Hr" />
-        <Comments videoID={currentVideo?._id}/>
+        <Comments videoID={currentVideo?._id} socket={socket}/>
       </div>
       <Recommodation tags={currentVideo?.tags}/>     
     </div>

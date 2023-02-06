@@ -10,28 +10,17 @@ import Pusher from 'pusher-js';
 import { useNavigate } from 'react-router-dom';
 
 
-function Comments({videoID}) {
+function Comments({videoID,socket}) {
   const {currentUser}=useSelector(state => state.user);
   const {currentVideo}=useSelector(state=>state.video)
   const [comments,setComments]=useState([]);
   const[Input,setInput]=useState('')
   const navigate = useNavigate();
-  
-useEffect(()=>{
-  var pusher = new Pusher('2cb807ac9e27dee80bb7', {
-    cluster: 'ap2'
-  });
-  var channel = pusher.subscribe('comments');
-  channel.bind('inserted', function(data) {
-   if(data.videoId == currentVideo._id){
-    const time = new Date()
-    data.timestamps = time;
-    console.log(data)
-      setComments(prev =>[...prev,data]);
-   }
-  });
+  const [SId,setSId]=useState('');
 
-})
+  
+
+
   useEffect(()=>{
     const fetchComments = async()=>{
       try {
@@ -57,16 +46,26 @@ const formik = useFormik({
     }})
     formik.resetForm()
     alert("Comment Added");
-    console.log(currentVideo);
-    // window.location.reload();
-    navigate(`/video/${currentVideo._id}`)
+    
+    socket.on("SId",(data)=>{
+      setSId(data);
+    })
+    let timestamps = new Date();
+    var comm = {...values,videoId:currentVideo._id,timestamps : timestamps , userId:currentUser};
+    socket.emit("addComment",comm )
+    
     
     } catch (error) {
       console.log(error)
     }  
   }
 })
-
+useEffect(()=>{
+  socket.on('receiveComment',(data)=>{
+        console.log(data)
+    setComments(list => [...list,data])
+  })
+},[socket])
 
   return (
     <div className='Comments-Container'>

@@ -40,7 +40,7 @@ function VideoCard({type,vdo,test}) {
         <div className='Card-Texts' style={{fontSize:`${type=="sm" && "12px" }`}}>
             <h1 className='Card-Title'>{vdo.title}</h1>
             <h2 className='Card-ChannelName' >{Channel.name}</h2>
-            <div className='Card-Info'> {format(vdo.timestamps)}</div>
+            <div className='Card-Info'>{vdo.views} Views · {format(vdo.timestamps)}</div>
           </div>
       </div>
       </div>

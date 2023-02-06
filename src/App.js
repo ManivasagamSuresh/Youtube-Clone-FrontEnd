@@ -8,8 +8,9 @@ import VideoCard from './Components/VideoCard/Videocard';
 import Login from './Components/Login/Login';
 import Signup from './Components/Signup/Signup';
 import Search from './Components/Search/Search';
+import io from 'socket.io-client'
 
-
+const socket = io.connect('http://localhost:5000')
 
 
 
@@ -28,7 +29,7 @@ function App() {
             <Route path='/trendvideo' element={<Home type="trendvideo"/>} />
             <Route path='/subscribedVideo' element={<Home type="subscribedVideo"/>} />
             {/* <Route path='/Search' element={<Home type='search'/>} />  */}
-            <Route path='/video/:id' element={<Video/>}/>
+            <Route path='/video/:id' element={<Video socket={socket}/>}/>
             <Route path='/Login' element={<Login/>}/>
             <Route path='/Signup' element={<Signup/>}/> 
             <Route path='/search' element={<Search/>}/> 

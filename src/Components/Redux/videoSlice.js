@@ -37,12 +37,15 @@ export const videoSlice = createSlice({
          state.currentVideo.dislikes.push(action.payload);
          state.currentVideo.likes.splice(state.currentVideo.likes.findIndex((userId)=> userId == action.payload),1)
       }
+     },
+     views:(state,action)=>{
+      state.currentVideo.views = state.currentVideo.views+1;   
      }
      
     },
   })
   
   // Action creators are generated for each case reducer function
-  export const { fetchStart,fetchFailure,fetchSuccess,like,dislike } = videoSlice.actions;
+  export const { fetchStart,fetchFailure,fetchSuccess,like,dislike,views } = videoSlice.actions;
   
   export default videoSlice.reducer
