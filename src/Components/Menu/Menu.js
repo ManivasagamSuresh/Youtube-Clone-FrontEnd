@@ -25,14 +25,14 @@ function Menu() {
    <div className='Menu-Container'>
    
       <div className='Menu-Wrapper'>
-      <Link to={'/'}  style={{textDecoration:"none",color:"inherit"}} >  
+      {currentUser?<><Link to={'/random'}  style={{textDecoration:"none",color:"inherit"}} >  
       <div className="Menu-Logo">
             <img className='Menu-Img' src={logo}/>
             MBTube            
         </div>
       </Link>
       
-        <div className="Menu-Item" onClick={()=>{navigate("/")}}>
+        <div className="Menu-Item" onClick={()=>{navigate("/random")}}>
            <AiFillHome size={"1.5em"}/> Home
         </div>
         <div className="Menu-Item" onClick={()=>{navigate("/trendvideo")}}>
@@ -49,13 +49,13 @@ function Menu() {
             <div className="Login">
             Sign In to Like , comment and Subscribe .
             <br/>
-            <button onClick={()=>{navigate('/Login')}} className='Menu-Button'><RiAccountCircleLine size={"1.3em"}/> Sign In</button>
+            <button onClick={()=>{navigate('/')}} className='Menu-Button'><RiAccountCircleLine size={"1.3em"}/> Sign In</button>
             </div>
             </>  }
             
         
-        <hr className='Menu-Hr'/>
-        <div className="Menu-Item">
+        <hr className='Menu-Hr'/></>:null}
+        {/* <div className="Menu-Item">
            <MdOutlineVideoLibrary size={"1.5em"}/> Library
         </div>
         <div className="Menu-Item">
@@ -67,7 +67,7 @@ function Menu() {
         </div>
         <div className="Menu-Item">
            <MdHelpOutline size={"1.5em"}/> Help
-        </div>
+        </div> */}
         
 
       </div>

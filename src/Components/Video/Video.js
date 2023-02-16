@@ -16,6 +16,7 @@ import { Config } from "../../Config";
 import { subscription } from "../Redux/userSlice";
 import Recommodation from "../Recommondation/Recommodation";
 import { Socket } from "socket.io-client";
+import Navbar from "../NavBar/Navbar";
 
 function Video({socket}) {
 
@@ -30,17 +31,20 @@ const dispatch = useDispatch()
 
 useEffect(()=>{
   const fecthData = async()=>{
-    
+    console.log(currentVideo);
+    console.log(currentUser);
     try {
-      await axios.put(`${Config.api}/videoViews/${currentVideo._id}`,{"headers" :{
-        "authorization":localStorage.getItem("accessToken")
-    }})
+      
       const  vdo = await axios.get(`${Config.api}/findvideo/${params.id}`,{headers :{
         "authorization":localStorage.getItem("accessToken")
     }})
+    console.log(vdo.data);
       const  chnl = await axios.get(`${Config.api}/findUser/${vdo.data.userId}`,{headers :{
         "authorization":localStorage.getItem("accessToken")
-    }})         
+    }})
+    await axios.put(`${Config.api}/videoViews/${currentVideo._id}`,{"headers" :{
+      "authorization":localStorage.getItem("accessToken")
+  }})         
     console.log(vdo)
           setChannel(chnl.data);
           dispatch(fetchSuccess(vdo.data));
@@ -69,14 +73,14 @@ const handlelike = async()=>{
 }
 
 const handledislike = async()=>{
-  try {
+ { try {
     const dis = await axios.put(`${Config.api}/dislike/${currentVideo._id}`,{"headers" :{
       "authorization":localStorage.getItem("accessToken")
   }})
   dispatch(dislike(currentUser.others._id))
   } catch (error) {
     console.log(error); 
-  }
+  }}
 }
 
 
@@ -98,6 +102,8 @@ const handleSub = async()=>{
 
 
   return (
+    <>
+    
     <div className="Video-Container">
       <div className="Video-Content">
         <div className="Video-Wrapper">
@@ -105,10 +111,11 @@ const handleSub = async()=>{
         </div>
         <h1 className="Video-Title">{currentVideo?.title}</h1>
         <div className="Video-Details">
-          { <div className="Video-Info">{currentVideo?.views}  views . {format(currentVideo.timestamps)}</div> }
+          { <div className="Video-Info">{currentVideo?.views}  views . {format(currentVideo?.timestamps)}</div> }
+          {/*  */}
           <div className="Video-Buttons">
             <div className="Video-Button" >
-              {currentVideo?.likes?.includes(currentUser.others._id)?<AiFillLike size={"1.2em"} /> :<AiOutlineLike size={"1.2em"} onClick={handlelike}/>}
+              {currentVideo?.likes?.includes(currentUser.others._id)?<AiFillLike size={"1.2em"} /> :<AiOutlineLike size={"1.2em"} onClick={{handlelike}}/>}
               {currentVideo?.likes?.length}
             </div>
             <div className="Video-Button" >
@@ -137,13 +144,14 @@ const handleSub = async()=>{
               </div>
             </div>
           </div>
-          <button className="Video-ChannelSubscribe" onClick={handleSub}>{currentUser.others.subscribedUsers?.includes(Channel._id) ? "Subscribed":  "Subscribe"}</button>
+          <button className="Video-ChannelSubscribe" onClick={handleSub}>{currentUser?.others.subscribedUsers?.includes(Channel._id) ? "Subscribed":  "Subscribe"}</button>
         </div>
         <hr className="Video-Hr" />
         <Comments videoID={currentVideo?._id} socket={socket}/>
       </div>
       <Recommodation tags={currentVideo?.tags}/>     
     </div>
+    </>
   );
 }
 

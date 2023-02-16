@@ -85,7 +85,7 @@ function Signup() {
                : null
                }
         <button type='submit' className='Signup-Button'>Register</button>
-        <div>Already have an account ?</div><span className='Signup-Login' onClick={()=>{navigate('/Login')}}>Login..</span>
+        <div>Already have an account ?</div><span className='Signup-Login' onClick={()=>{navigate('/')}}>Login..</span>
         </div>
         </form>
         </div>

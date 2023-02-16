@@ -38,7 +38,7 @@ const formik = useFormik({
       localStorage.setItem("accessToken",user.data.token)
       dispatch(loginSuccess(user.data));
       
-      navigate('/')
+      navigate('/random')
       console.log("signed in");      
     } catch (error) {
       console.log(error)

@@ -10,11 +10,13 @@ import Signup from './Components/Signup/Signup';
 import Search from './Components/Search/Search';
 import io from 'socket.io-client'
 
-// const socket = io.connect('http://localhost:5000')
+const socket = io.connect('http://localhost:5000')
 
-const socket = io.connect('https://you-tube-clone.onrender.com/api')
-
-
+// const socketio = async()=>{
+//   const socket = io.connect('https://you-tube-clone.onrender.com/api')
+//   return socket;
+// }
+// const socket =socketio();
 
 function App() {
   return (
@@ -27,12 +29,12 @@ function App() {
         <div className='App-Wrapper'>
           <Routes>
 
-            <Route path='/' element={<Home type="randomvideos"/>} />
+            <Route path='/random' element={<Home type="randomvideos"/>} />
             <Route path='/trendvideo' element={<Home type="trendvideo"/>} />
             <Route path='/subscribedVideo' element={<Home type="subscribedVideo"/>} />
             {/* <Route path='/Search' element={<Home type='search'/>} />  */}
             <Route path='/video/:id' element={<Video socket={socket}/>}/>
-            <Route path='/Login' element={<Login/>}/>
+            <Route path='/' element={<Login/>}/>
             <Route path='/Signup' element={<Signup/>}/> 
             <Route path='/search' element={<Search/>}/> 
                              

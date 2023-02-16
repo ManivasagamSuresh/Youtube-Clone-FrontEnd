@@ -45,7 +45,7 @@ const formik = useFormik({
         "Authorization":localStorage.getItem("accessToken"),
     }})
     formik.resetForm()
-    alert("Comment Added");
+    // alert("Comment Added");
     
     socket.on("SId",(data)=>{
       setSId(data);

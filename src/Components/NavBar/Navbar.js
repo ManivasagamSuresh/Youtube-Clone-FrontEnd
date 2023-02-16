@@ -33,7 +33,7 @@ const signout = ()=>{
 
   return (
     <>
-    <div className='Navbar-Container'>  
+    {currentUser?<><div className='Navbar-Container'>  
       <div className='Navbar-Wrapper'>
       <div className="Navbar-Search">
           <input className='Navbar-Input'  placeholder='Search' onChange={e=>setQ(e.target.value)}/>
@@ -47,11 +47,11 @@ const signout = ()=>{
           {currentUser.others.name} 
           <span onClick={()=>{signout()}} className="Navbar-Logout"> 
           <span style={{margin:"10px"}}>|</span><AiOutlineLogout/>Logout</span></div>
-        :<button onClick={()=>{navigate('/Login')}} className="Navbar-Button">
+        :<button onClick={()=>{navigate('/')}} className="Navbar-Button">
           <RiAccountCircleLine/> Sign In</button> }
       </div>
     </div>
-    {Open && <Uploadvdo setOpen={setOpen}/>}
+    {Open && <Uploadvdo setOpen={setOpen}/>}</>:null}
     </>
   )
 }
