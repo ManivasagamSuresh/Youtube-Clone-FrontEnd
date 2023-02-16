@@ -42,7 +42,7 @@ useEffect(()=>{
       const  chnl = await axios.get(`${Config.api}/findUser/${vdo.data.userId}`,{headers :{
         "authorization":localStorage.getItem("accessToken")
     }})
-    await axios.put(`${Config.api}/videoViews/${currentVideo._id}`,{"headers" :{
+    await axios.put(`${Config.api}/videoViews/${vdo.data._id}`,{"headers" :{
       "authorization":localStorage.getItem("accessToken")
   }})         
     console.log(vdo)
