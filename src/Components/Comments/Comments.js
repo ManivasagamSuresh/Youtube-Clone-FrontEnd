@@ -51,7 +51,7 @@ const formik = useFormik({
       setSId(data);
     })
     let timestamps = new Date();
-    var comm = {...values,videoId:currentVideo._id,timestamps : timestamps , userId:currentUser};
+    var comm = {...values,videoId:currentVideo._id,timestamps : timestamps , userId:currentUser.others._id};
     socket.emit("addComment",comm )
     
     
