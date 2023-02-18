@@ -20,7 +20,7 @@ function Search() {
             }})
             setVideos(res.data);
         }
-        fetch();
+       if(query.length ==0 || query.length >= 2)  fetch();
     },[query])
   return (
     <div className='Search-Container'>
