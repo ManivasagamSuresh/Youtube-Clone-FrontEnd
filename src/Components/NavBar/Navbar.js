@@ -36,7 +36,7 @@ const signout = ()=>{
     {currentUser?<><div className='Navbar-Container'>  
       <div className='Navbar-Wrapper'>
       <div className="Navbar-Search">
-          <input className='Navbar-Input'  placeholder='Search' onChange={e=>setQ(e.target.value)}/>
+          <input className='Navbar-Input'  placeholder='Search' onChange={e=>{setQ(e.target.value);navigate(`/search?q=${q}`)}}/>
           {/* onChange={formik.handleChange} name='search' value={formik.values.search} */}
           <MdOutlineSearch onClick={()=>navigate(`/search?q=${q}`)}/>
           
