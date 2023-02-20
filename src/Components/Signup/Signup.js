@@ -37,7 +37,7 @@ function Signup() {
          
             let user = await axios.post(`${Config.api}/signup`,values)
           console.log("registered")
-          navigate('/Login')
+          navigate('/')
         
           
           
