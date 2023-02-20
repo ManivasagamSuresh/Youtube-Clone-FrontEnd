@@ -34,14 +34,11 @@ function Signup() {
       onSubmit : async(values)=>{
         
         try {
-          let exist = await axios.get(`${Config.api}/users`,values)
-          if(exist){
-            alert("Email already Exist")
-          }else{
+         
             let user = await axios.post(`${Config.api}/signup`,values)
           console.log("registered")
           navigate('/Login')
-        }
+        
           
           
         } catch (error) {
